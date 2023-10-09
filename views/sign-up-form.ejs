@@ -1,0 +1,97 @@
+<%- extend('layout',{isLoggedIn:isLoggedIn,isMember:isMember})%>
+<h1 class="text-5xl text-center mt-5">Sign Up</h1>
+<form
+  class="absolute border-2 rounded-2xl border-slate-500 p-5 mt-2 top-1/2 left-1/2 flex flex-col justify-between translate-x-[-50%] translate-y-[-50%] w-2/5 h-2/3"
+  action=""
+  method="POST"
+>
+  <div class="flex justify-between">
+    <label class="text-4xl" for="email">Email: </label>
+    <input
+      class="border-[1px] border-black rounded-xl text-2xl p-2 h-[45px]"
+      type="email"
+      id="email"
+      name="email"
+      value="<%= user === undefined ? '' : user.email%>"
+      placeholder="john@doe.com"
+      required
+    />
+  </div>
+  <div class="flex justify-between">
+    <label class="text-4xl" for="first-name">First name: </label>
+    <input
+      class="border-[1px] border-black rounded-xl text-2xl p-2 h-[45px]"
+      type="text"
+      id="first-name"
+      name="firstName"
+      value="<%= user === undefined ? '' : user.firstName%>"
+      required
+    />
+  </div>
+  <div class="flex justify-between">
+    <label class="text-4xl" for="last-name">Last name: </label>
+    <input
+      class="border-[1px] border-black rounded-xl text-2xl p-2 h-[45px]"
+      type="text"
+      id="last-name"
+      name="lastName"
+      value="<%= user === undefined ? '' : user.lastName%>"
+      required
+    />
+  </div>
+  <div class="flex justify-between">
+    <label class="text-4xl" for="password">Password: </label>
+    <input
+      class="border-[1px] border-black rounded-xl text-2xl p-2 h-[45px]"
+      type="password"
+      id="password"
+      name="password"
+      required
+    />
+  </div>
+  <div class="flex justify-between">
+    <label class="text-4xl whitespace-nowrap" for="password-confirm"
+      >Confirm Password:
+    </label>
+    <input
+      class="border-[1px] border-black rounded-xl text-2xl p-2 h-[45px]"
+      type="password"
+      id="password-confirm"
+      name="passwordConfirm"
+    />
+  </div>
+  <div class="flex justify-between">
+    <label class="text-4xl" for="admin">Admin: </label>
+    <%if(user && user.isAdmin){%>
+    <input
+      class="border-[1px] border-black rounded-xl h-[30px] w-[30px] mr-[160px]"
+      type="checkbox"
+      id="admin"
+      name="isAdmin"
+      checked
+    />
+    <%}else{%>
+    <input
+      class="border-[1px] border-black rounded-xl h-[30px] w-[30px] mr-[160px]"
+      type="checkbox"
+      id="admin"
+      name="isAdmin"
+    />
+    <%}%>
+  </div>
+
+  <button
+    class="text-4xl bg-slate-500 text-white p-2 rounded-2xl self-center w-fit transition-all duration-200 hover:scale-105"
+    type="submit"
+  >
+    Sign Up
+  </button>
+</form>
+<%if(errors){%>
+<ul class="text-3xl ml-10 text-red-500">
+  <%errors.forEach(error => {%>
+  <li><%= error.msg%></li>
+  <%})%>
+</ul>
+
+<%}%>
