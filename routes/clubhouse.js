@@ -15,7 +15,6 @@ router.post("/signup", authController.signUp_post);
 
 //Logout page
 router.get("/logout", authController.logout_get);
-router.post("/logout", authController.logout_post);
 
 //Member authentication page
 router.get("/memberauth", authController.memberAuth_get);

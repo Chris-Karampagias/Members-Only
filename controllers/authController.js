@@ -2,6 +2,7 @@ const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
 
 exports.memberAuth_get = asyncHandler((req, res, next) => {
   res.send("NOT IMPLEMENTED YET: member authentication get");
@@ -12,17 +13,15 @@ exports.memberAuth_post = asyncHandler((req, res, next) => {
 });
 
 exports.login_get = asyncHandler((req, res, next) => {
-  res.send("NOT IMPLEMENTED YET: login page get");
+  res.render("log-in-form");
 });
 
-exports.login_post = asyncHandler((req, res, next) => {
-  res.send("NOT IMPLEMENTED YET: login page post");
+exports.login_post = passport.authenticate("local", {
+  failureRedirect: "/clubhouse/login",
+  successRedirect: "/clubhouse",
 });
-
 exports.signUp_get = (req, res, next) => {
   res.render("sign-up-form", {
-    isLoggedIn: false,
-    isMember: false,
     user: undefined,
     errors: null,
   });
@@ -76,8 +75,6 @@ exports.signUp_post = [
         isAdmin: isAdmin,
       });
       res.render("sign-up-form", {
-        isLoggedIn: false,
-        isMember: false,
         user: user,
         errors: errors.array(),
       });
@@ -102,10 +99,11 @@ exports.signUp_post = [
   }),
 ];
 
-exports.logout_get = asyncHandler((req, res, next) => {
-  res.send("NOT IMPLEMENTED YET: logout page get");
-});
-
-exports.logout_post = asyncHandler((req, res, next) => {
-  res.send("NOT IMPLEMENTED YET: logout page post");
-});
+exports.logout_get = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/clubhouse");
+  });
+};
