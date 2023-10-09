@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Members Only by Chris Karampagias</title>
+    <link rel="stylesheet" href="./stylesheets/style.css" type="text/css" />
+  </head>
+  <body class="min-h-screen">
+    <header
+      class="h-[70px] flex justify-between items-center pl-5 pr-5 bg-black text-white"
+    >
+      <h1 class="text-5xl justify-self-start">Members Only</h1>
+      <%if (!user) {%>
+      <div class="text-3xl mr-10 flex gap-10">
+        <a
+          class="bg-slate-500 p-2 rounded-2xl transition-all duration-200 hover:scale-105"
+          href="/clubhouse/login"
+          >Login</a
+        >
+        <a
+          class="bg-slate-500 p-2 rounded-2xl transition-all duration-200 hover:scale-105"
+          href="/clubhouse/signup"
+          >Sign Up</a
+        >
+      </div>
+      <%}else{%>
+      <div class="text-3xl mr-10 flex gap-10">
+        <a
+          class="bg-slate-500 p-2 rounded-2xl transition-all duration-200 hover:scale-105"
+          href="/clubhouse/logout"
+          >Logout</a
+        >
+        <%if(!isMember){%>
+        <a
+          class="bg-slate-500 p-2 rounded-2xl transition-all duration-200 hover:scale-105"
+          href="/clubhouse/memberauth"
+          >Join the club!</a
+        >
+        <%}%>
+      </div>
+      <%}%>
+    </header>
+    <main><%- content %></main>
+    <footer
+      class="absolute bottom-0 h-[70px] text-white bg-black w-full text-center text-5xl transition-all duration-200 hover:scale-105"
+    >
+      &copy; 2023 Chris Karampagias
+    </footer>
+  </body>
+</html>
