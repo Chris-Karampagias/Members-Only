@@ -9,7 +9,8 @@ const logger = require("morgan");
 const ejsExtend = require("express-ejs-extend");
 const mongoose = require("mongoose");
 
-const indexRouter = require("./routes/index");
+const indexRouter = require("./routes");
+const clubhouseRouter = require("./routes/clubhouse");
 
 const app = express();
 
@@ -54,6 +55,7 @@ app.use(express.static("public"));
 
 //router config
 app.use("/", indexRouter);
+app.use("/clubhouse", clubhouseRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
