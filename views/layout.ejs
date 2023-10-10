@@ -36,10 +36,10 @@
           href="/clubhouse/logout"
           >Logout</a
         >
-        <%if(!user.isAdmin || !user.isMember){%>
+        <%if(!user.isAdmin && !user.isMember){%>
         <a
           class="bg-slate-500 p-2 rounded-2xl transition-all duration-200 hover:scale-105"
-          href="/clubhouse/memberauth"
+          href="/clubhouse/memberauth/<%=user._id%>"
           >Join the club!</a
         >
         <%}%>
