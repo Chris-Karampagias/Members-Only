@@ -17,8 +17,8 @@ router.post("/signup", authController.signUp_post);
 router.get("/logout", authController.logout_get);
 
 //Member authentication page
-router.get("/memberauth", authController.memberAuth_get);
-router.post("/memberauth", authController.memberAuth_post);
+router.get("/memberauth/:id", authController.memberAuth_get);
+router.post("/memberauth/:id", authController.memberAuth_post);
 
 //Create message page
 router.get("/create-message", messageController.createMessage_get);

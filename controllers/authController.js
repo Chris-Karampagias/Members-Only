@@ -4,13 +4,37 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 
-exports.memberAuth_get = asyncHandler((req, res, next) => {
-  res.send("NOT IMPLEMENTED YET: member authentication get");
-});
+exports.memberAuth_get = (req, res, next) => {
+  res.render("member-auth-form", { user: req.user, errors: null });
+};
 
-exports.memberAuth_post = asyncHandler((req, res, next) => {
-  res.send("NOT IMPLEMENTED YET: member authentication post");
-});
+exports.memberAuth_post = [
+  body("password")
+    .trim()
+    .matches("clubhouse123")
+    .withMessage("Password is incorrect")
+    .isLength({ min: 1 })
+    .withMessage("Password is required")
+    .escape(),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.render("member-auth-form", {
+        user: req.user,
+        errors: errors.array(),
+      });
+    } else {
+      const oldUser = await User.findById(req.params.id);
+      const updatedUser = new User({
+        ...oldUser,
+        isMember: true,
+        _id: req.params.id,
+      });
+      await User.findByIdAndUpdate(req.params.id, updatedUser);
+      res.redirect("/clubhouse");
+    }
+  }),
+];
 
 exports.login_get = asyncHandler((req, res, next) => {
   res.render("log-in-form");
