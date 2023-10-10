@@ -539,6 +539,9 @@ video {
 .mb-\[100px\] {
   margin-bottom: 100px;
 }
+.mt-20 {
+  margin-top: 5rem;
+}
 .flex {
   display: flex;
 }
@@ -565,6 +568,9 @@ video {
 }
 .h-\[200px\] {
   height: 200px;
+}
+.h-1\/5 {
+  height: 20%;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -628,6 +634,9 @@ video {
 }
 .gap-20 {
   gap: 5rem;
+}
+.gap-5 {
+  gap: 1.25rem;
 }
 .self-center {
   align-self: center;
