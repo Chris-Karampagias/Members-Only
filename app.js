@@ -15,10 +15,11 @@ const clubhouseRouter = require("./routes/clubhouse");
 const app = express();
 
 //MongoDB database connection
-const dev_url =
-  "mongodb+srv://admin:0000@cluster0.3qmhooj.mongodb.net/members_only_top?retryWrites=true&w=majority";
 mongoose
-  .connect(dev_url, { useUnifiedTopology: true, useNewUrlParser: true })
+  .connect(process.env.MONGO_URL, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
   .catch((err) => {
     console.log("Failed to connect to MongoDB", err);
   });
