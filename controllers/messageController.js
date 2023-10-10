@@ -2,15 +2,23 @@ const Message = require("../models/message");
 const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const mongoose = require("mongoose");
 
 exports.homePage = asyncHandler(async (req, res, next) => {
-  const messages = await Message.find({})
-    .populate("user")
-    .orFail("Could not find any messages");
-  res.render("home", {
-    user: req.user === undefined ? null : req.user,
-    messages: messages,
-  });
+  const count = await mongoose.connection.db
+    .collection("messages")
+    .countDocuments();
+  if (count === 0) {
+    res.render("no-messages", { user: req.user });
+  } else {
+    const messages = await Message.find({})
+      .populate("user")
+      .orFail("Could not find any messages");
+    res.render("home", {
+      user: req.user === undefined ? null : req.user,
+      messages: messages,
+    });
+  }
 });
 
 exports.createMessage_get = (req, res, next) => {
@@ -49,10 +57,7 @@ exports.createMessage_post = [
   }),
 ];
 
-exports.deleteMessage_get = asyncHandler((req, res, next) => {
-  res.send("NOT IMPLEMENTED YET: delete message get");
-});
-
-exports.deleteMessage_post = asyncHandler((req, res, next) => {
-  res.send("NOT IMPLEMENTED YET: delete message post");
+exports.deleteMessage_get = asyncHandler(async (req, res, next) => {
+  await Message.findByIdAndDelete(req.params.id);
+  res.redirect("/clubhouse");
 });

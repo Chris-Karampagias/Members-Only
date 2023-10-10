@@ -1,0 +1,14 @@
+<% extend('layout',{user:user})%> <%if(!user){%>
+<div
+  class="text-center ml-auto mr-auto text-3xl mt-20 bg-slate-500 text-white rounded-2xl p-2 w-1/2"
+>
+  <h1>There are no messages at the moment!</h1>
+</div>
+<%}else{%>
+<div
+  class="text-center flex flex-col gap-10 ml-auto mr-auto text-3xl mt-20 bg-slate-500 text-white rounded-2xl p-2 w-1/2"
+>
+  <h1>There are no messages at the moment!</h1>
+  <p>Be the first to create one!</p>
+</div>
+<%}%>
