@@ -1,0 +1,62 @@
+<% extend('layout',{user:user})%> <%if(user && user.isAdmin){%>
+<h1 class="text-4xl ml-2 mt-5">Hello, admin!</h1>
+<%}else if (user && !user.isMember){%>
+<h1 class="text-4xl ml-2 mt-5">Hello, <%= user.firstName%>!</h1>
+<%}else if(user && user.isMember){%>
+<h1 class="text-4xl ml-2 mt-5">
+  Welcome to the clubhouse, <%= user.firstName %>
+</h1>
+<%}else{%>
+<h1 class="text-4xl ml-2 mt-5">Welcome!</h1>
+<%}%>
+
+<div class="h-full flex flex-col gap-20 w-2/5 ml-auto mr-auto mb-[100px]">
+  <%messages.forEach((message) => {%>
+  <div class="min-h-[200px] bg-black text-white rounded-2xl p-3">
+    <%if(user && user.isAdmin){%>
+    <div class="flex justify-between border-b-[1px]">
+      <h1 class="text-2xl"><%=message.user.fullName%></h1>
+      <a
+        class="transition-all duration-200 hover:scale-105"
+        href="/clubhouse/delete-message/<%=message._id%>"
+        ><svg
+          class="h-10 w-10 delete-button-red"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <title>delete</title>
+          <path
+            d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
+          />
+        </svg>
+      </a>
+    </div>
+    <div class="flex justify-between">
+      <h2 class="text-2xl"><%=message.title%></h2>
+      <h3 class="text-xl"><%=message.timestampFormatted%></h3>
+    </div>
+    <%}else if (user && !user.isMember){%>
+    <div>
+      <h2 class="text-2xl"><%=message.title%></h2>
+    </div>
+    <%}else if(user && user.isMember){%>
+    <div>
+      <h1 class="text-2xl"><%=message.user.fullName%></h1>
+    </div>
+    <div class="flex justify-between">
+      <h2 class="text-2xl"><%=message.title%></h2>
+      <h3><%=message.timestampFormatted%></h3>
+    </div>
+    <%}else{%>
+    <div>
+      <h2 class="text-2xl"><%=message.title%></h2>
+    </div>
+    <%}%>
+    <div>
+      <p class="text-2xl mt-5 ml-5 before:content-['>'] break-words">
+        <%=message.content%>
+      </p>
+    </div>
+  </div>
+  <%})%>
+</div>

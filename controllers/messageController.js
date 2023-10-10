@@ -3,10 +3,13 @@ const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
-exports.homePage = asyncHandler((req, res, next) => {
+exports.homePage = asyncHandler(async (req, res, next) => {
+  const messages = await Message.find({})
+    .populate("user")
+    .orFail("Could not find any messages");
   res.render("home", {
-    isLoggedIn: req.user === undefined ? false : true,
-    isMember: req.user && req.user.isMember === true ? true : false,
+    user: req.user === undefined ? null : req.user,
+    messages: messages,
   });
 });
 
