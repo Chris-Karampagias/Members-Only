@@ -45,7 +45,7 @@ app.set("view engine", "ejs");
 
 //session config
 const sessionConfig = session({
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET_PROD,
   resave: false,
   saveUninitialized: true,
   cookie: {
