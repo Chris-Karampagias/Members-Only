@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.delete-button-red {
+  filter: invert(44%) sepia(73%) saturate(3444%) hue-rotate(333deg)
+    brightness(92%) contrast(107%);
+}
