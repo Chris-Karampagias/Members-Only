@@ -14,6 +14,19 @@ const clubhouseRouter = require("./routes/clubhouse");
 
 const app = express();
 
+//production config
+const compression = require("compression");
+const helmet = require("helmet");
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20,
+});
+
+app.use(compression());
+app.use(helmet());
+app.use(limiter);
+
 //MongoDB database connection
 const dev_url =
   "mongodb+srv://admin:0000@cluster0.3qmhooj.mongodb.net/members_only_top?retryWrites=true&w=majority";
