@@ -83,15 +83,27 @@ exports.signUp_post = [
         if (err) {
           return next(err);
         }
-        const user = new User({
-          email: req.body.email,
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          password: hashedPassword,
-          isMember: false,
-          isAdmin: isAdmin,
-        });
-        await user.save();
+        if (isAdmin) {
+          const user = new User({
+            email: req.body.email,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            password: hashedPassword,
+            isMember: true,
+            isAdmin: isAdmin,
+          });
+          await user.save();
+        } else {
+          const user = new User({
+            email: req.body.email,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            password: hashedPassword,
+            isMember: false,
+            isAdmin: isAdmin,
+          });
+          await user.save();
+        }
       });
 
       res.redirect("/clubhouse/login");
