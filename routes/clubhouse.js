@@ -26,6 +26,5 @@ router.post("/create-message", messageController.createMessage_post);
 
 //Delete message page
 router.get("/delete-message/:id", messageController.deleteMessage_get);
-router.post("/delete-message/:id", messageController.deleteMessage_post);
 
 module.exports = router;
