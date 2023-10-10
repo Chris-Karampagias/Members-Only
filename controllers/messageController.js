@@ -36,9 +36,15 @@ exports.createMessage_post = [
   body("content", "Content is required").trim().isLength({ min: 1 }).escape(),
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
+    let content;
+    if (req.body.content.includes("&#x27;")) {
+      content = req.body.content.replace("&#x27;", "'");
+    } else {
+      content = req.body.content;
+    }
     const message = new Message({
       title: req.body.title,
-      content: req.body.content,
+      content: content,
       user: req.user._id,
     });
 
